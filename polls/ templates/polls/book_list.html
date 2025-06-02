@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Book List</h1>
+
+    <a href="{% url 'book_create' %}">Add Book</a>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                <strong>{{ book.name }}</strong><br>
+                Authors: {{ book.authors.all|join:", " }}<br>
+                Publisher: {{ book.publisher.name }}<br>
+                Pages: {{ book.pages }}<br>
+                Price: ${{ book.price }}<br>
+                Rating: {{ book.rating }}<br>
+                Published: {{ book.pubdate }}<br>
+                [<a href="{% url 'book_update' book.id %}">Edit</a>]
+                [<a href="{% url 'book_delete' book.id %}">Delete</a>]
+            </li>
+            <hr>
+        {% empty %}
+            <li>No books found.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+</body>
+</html>

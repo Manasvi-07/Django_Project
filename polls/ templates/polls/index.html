@@ -1,3 +1,27 @@
+{% load static %}  <!-- Load static at the very top -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Polls</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+
+<h1>{{ question }}</h1>
+
+<form method="POST">
+  {% csrf_token %}
+  <label>
+    <input type="radio" name="choice" value="Option 1"> Option 1
+  </label><br>
+  <label>
+    <input type="radio" name="choice" value="Option 2"> Option 2
+  </label><br>
+  <button type="submit">Vote</button>
+</form>
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -8,6 +32,6 @@
     <p>No polls are available.</p>
 {% endif %}
 
-{% load static %}
+</body>
+</html>
 
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
