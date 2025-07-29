@@ -1,24 +1,20 @@
 from django.urls import path
-from .views import book_page, book_list
-
-from . import views
+from .views import IndexView, DetailView, ResultsView, VoteView, BookListView, BookPageView, BookCreateView, BookDeleteView, BookUpdateView, AuthorListView, AddBookServiceView,QuestionListView
 
 app_name = "polls"
+
 urlpatterns = [
-    path("", views.IndexView.as_view(), name="index"),
-
-    path("<int:pk>/", views.DetailView.as_view(), name="detail"),
-
-    path("<int:pk>/results/", views.ResultsView.as_view(), name="results"),
-
-    path("<int:question_id>/vote/", views.vote, name="vote"),
-
-    path('books/', book_page, name='book_page'),
-
-    path('author/', views.author_list, name='author_list'),
-    path('', views.index, name="index"),
-    path('books/', views.book_list, name="book_list"),
-    path('books/add/', views.book_create, name="book_create"),
-    path('books/<int:pk>/edit/', views.book_update, name="book_update"),
-    path('books/<int:pk>/delete/', views.book_delete, name="book_delete"),
+    path("", IndexView.as_view(), name="index"),
+    path("<int:pk>/",DetailView.as_view(), name="detail"),
+    path("<int:pk>/results/", ResultsView.as_view(), name="results"),
+    path("<int:question_id>/vote/", VoteView.as_view(), name="vote"),
+    path("books/", BookListView.as_view(), name="book_list"),
+    path("books/page/", BookPageView.as_view(), name="book_page"),
+    path("books/add/", BookCreateView.as_view(), name="book_add"),
+    path("books/<int:pk>/edit/", BookUpdateView.as_view(), name="book_edit"),
+    path("books/<int:pk>/delete/", BookDeleteView.as_view(), name="book_delete"), 
+    path("authors/", AuthorListView.as_view(), name="author_list"),
+    path("create-book-service/", AddBookServiceView.as_view(), name="add_book_service"),
+    path('questions/', QuestionListView.as_view(), name='question-list'),
 ]
+

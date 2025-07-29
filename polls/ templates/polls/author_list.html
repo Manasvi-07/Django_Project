@@ -1,6 +1,15 @@
-<h2>Author Form</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Author List</title>
+</head>
+<body>
+  <h1>Author List</h1>
+  <ul>
+    {% for author in authors %}
+      <li>{{ author.name }} (Age: {{ author.age }})</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'polls:index' %}">Back to Home</a>
+</body>
+</html>

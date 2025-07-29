@@ -1,37 +1,24 @@
-{% load static %}  <!-- Load static at the very top -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Polls</title>
-    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <title>Polls Index</title>
+    <meta charset="UTF-8">
 </head>
 <body>
+    <h1>Latest Questions</h1>
 
-<h1>{{ question }}</h1>
-
-<form method="POST">
-  {% csrf_token %}
-  <label>
-    <input type="radio" name="choice" value="Option 1"> Option 1
-  </label><br>
-  <label>
-    <input type="radio" name="choice" value="Option 2"> Option 2
-  </label><br>
-  <button type="submit">Vote</button>
-</form>
-
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-    <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
-
+    {% if latest_question_list %}
+        <ul>
+            {% for question in latest_question_list %}
+                <li>
+                    <a href="{% url 'polls:detail' question.id %}">
+                        {{ question.question_text }}
+                    </a> (Published on {{ question.pub_date|date:"Y-m-d H:i" }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
 </body>
 </html>
-

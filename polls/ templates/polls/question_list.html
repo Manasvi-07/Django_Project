@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Questions</title>
+</head>
+<body>
+    <h1>All Questions</h1>
+    <ul>
+        {% for question in object_list %}
+            <li>
+                <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
